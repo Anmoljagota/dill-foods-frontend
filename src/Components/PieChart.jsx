@@ -51,7 +51,7 @@ import {
   
     return (
       <ResponsiveContainer width={"100%"} height={400}>
-        <PieChart width={600} height={600}>
+        <PieChart  height={600}>
           <Pie
             data={calculatedPercentage}
             dataKey="value"

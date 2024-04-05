@@ -70,7 +70,7 @@ const NavBar = () => {
           <Avatar size="sm" src="https://bit.ly/dan-abramov">
             <AvatarBadge boxSize="1.25em" bg="green.500" />
           </Avatar>
-          <Text color={"#9B8C8D"}>Jonson Smith</Text>
+          <Text color={"#9B8C8D"}>Johnson Smith</Text>
         </HStack>
       </Flex>
     </Flex>

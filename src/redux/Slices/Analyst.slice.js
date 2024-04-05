@@ -1,5 +1,10 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-
+import { createSlice } from "@reduxjs/toolkit";
+import {
+  GetData,
+  getBarChartdata,
+  getPieChartdata,
+  getrevanue,
+} from "./action";
 const initialState = {
   loading: false,
   error: false,
@@ -9,68 +14,6 @@ const initialState = {
   sales: [],
   revanue: [],
 };
-
-const GetData = createAsyncThunk("get/analyst", async () => {
-  try {
-    const res = await fetch(
-      `https://dil-foods-backend-1.onrender.com/headerData`
-    );
-    const data = await res.json();
-    console.log(data, "kkk");
-    return data;
-  } catch (err) {
-    console.log(err, "err");
-  }
-});
-
-const getBarChartdata = createAsyncThunk(
-  "get/visitors",
-  async (selectedyear) => {
-    try {
-      const res = await fetch(
-        `https://dil-foods-backend-fwgy.onrender.com/visitors?year=${
-          selectedyear ? selectedyear : "2024"
-        }`
-      );
-      const data = await res.json();
-
-      return data;
-    } catch (err) {
-      console.log(err, "err");
-    }
-  }
-);
-
-const getrevanue = createAsyncThunk("get/revenue", async (selectedyear) => {
-  try {
-    const res = await fetch(
-      `https://dil-foods-backend-fwgy.onrender.com/revenue?year=${
-        selectedyear ? selectedyear : "2024"
-      }`
-    );
-    const data = await res.json();
-
-    return data;
-  } catch (err) {
-    console.log(err, "err");
-  }
-});
-//DATA FOR SALES
-const getPieChartdata = createAsyncThunk("get/sales", async (selectedyear) => {
-  try {
-    const res = await fetch(
-      `https://dil-foods-backend-fwgy.onrender.com/sales?year=${
-        selectedyear ? selectedyear : "2024"
-      }`
-    );
-    const data = await res.json();
-
-    return data;
-  } catch (err) {
-    console.log(err, "err");
-  }
-});
-
 const Data = createSlice({
   name: "AnalystData",
   initialState,

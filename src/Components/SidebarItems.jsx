@@ -6,7 +6,7 @@ import { Links } from "../utils/Data";
 const SidebarItems = () => {
   return (
     <Box
-      position="fixed"
+      position="sticky"
       top="0"
       left="0"
       bottom="0"
@@ -16,6 +16,7 @@ const SidebarItems = () => {
       backdropFilter={"--bg-filter"}
       borderTop={"1px solid rgba(255,255,255,.3)"}
       borderLeft={"1px solid rgba(255,255,255,.3)"}
+      height={"100vh"}
     >
       <Box>
         <Center>

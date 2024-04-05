@@ -23,7 +23,8 @@ const BarGraph = ( {visitors} ) => {
         width={600}
         height={400}
         data={extractedData}
-        margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
+        // margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
+        // padding={"20px"}
       >
         <CartesianGrid strokeDasharray="3 3" strokeWidth={1}/>
         <XAxis dataKey="month" tick={{ fontSize: "10px", fontWeight: "600" }} />

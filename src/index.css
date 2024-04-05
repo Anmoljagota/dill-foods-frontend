@@ -13,19 +13,9 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   --primary-bg: rgba(255, 255, 255, 0.055);
-  --primary-bs:0 5px 15px rgba(0,0,0,.3);
-  --bg-filter:blur(10px);
-  
+  --primary-bs: 0 5px 15px rgba(0, 0, 0, 0.3);
+  --bg-filter: blur(10px);
 }
-
-/* a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-} */
 
 body {
   margin: 0;
@@ -34,6 +24,15 @@ body {
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
+}
+
+.bgcolor {
+  background: rgb(63, 60, 66);
+  background: linear-gradient(
+    0deg,
+    rgba(63, 60, 66, 1) 0%,
+    rgba(17, 15, 15, 1) 100%
+  );
 }
 
 button {
@@ -58,7 +57,6 @@ button:focus-visible {
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
-   
   }
   a:hover {
     color: #747bff;
