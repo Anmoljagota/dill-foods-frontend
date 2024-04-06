@@ -1,6 +1,13 @@
-import { Box, Flex, Grid, SimpleGrid, Center } from "@chakra-ui/react";
+import {
+  Box,
+  Flex,
+  Grid,
+  SimpleGrid,
+  Center,
+  useToast,
+} from "@chakra-ui/react";
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector, shallowEqual } from "react-redux";
 import React from "react";
 import {
   GetData,
@@ -11,7 +18,7 @@ import {
 // import Header from "./Header";
 import { useBreakpointValue } from "@chakra-ui/react";
 
-import {  ScaleLoader } from "react-spinners";
+import { ScaleLoader } from "react-spinners";
 import BarGraph from "./BarChart";
 import PieGraph from "./PieChart";
 
@@ -20,6 +27,8 @@ import Header from "./Header";
 import NavBar from "./NavBar";
 import Selector from "./common/Selector";
 const Home = () => {
+  const toast = useToast();
+  const toastIdRef = React.useRef();
   const nav = useBreakpointValue({ base: false, lg: true });
   const [year, setYear] = useState("");
   const [yearSelected, setYearSelected] = useState(false);
@@ -33,21 +42,21 @@ const Home = () => {
   const { data, visitors, sales, loading, revanue } = useSelector(
     (visitorsdata) => {
       return visitorsdata.Data;
-    }
+    },
+    shallowEqual
   );
-  console.log(data, "iam visitors");
 
   const handleYear = (e) => {
     setYear(e.target.value);
   };
-
   const handleChartData = (e, key) => {
     console.log(e.target.value, key);
-    setYearSelected(true);
   };
 
   const togglediabled = () => {
-    setYearSelected(true);
+    toastIdRef.current = toast({
+      description: "Work in progress you can select from above selector",
+    });
   };
   return (
     <Box
@@ -58,8 +67,13 @@ const Home = () => {
     >
       <NavBar />
       <Box display={"flex"} justifyContent={"flex-end"} p={5}>
-        <Selector handleYear={handleYear} placeholder={"Choose a Year"} />
+        <Selector
+          handleYear={handleYear}
+          placeholder={"Choose a Year"}
+          identifier={"header"}
+        />
       </Box>
+
       {loading ? (
         <Center mt={20}>
           <ScaleLoader color="#36d7b7" />
@@ -78,94 +92,93 @@ const Home = () => {
               return <Header key={index} {...items} />;
             })}
           </Grid>
-          <Box overflowX="hidden">
-            <SimpleGrid
-              mt={10}
-              borderRadius={8}
-              columns={[1, 1, 2]}
-              spacing="40px"
-              w={"100%"}
-            >
-              <>
-                {visitors.length > 0 && (
-                  <Box>
-                    <Flex gap={10}>
-                      <Selector
-                        handleYear={togglediabled}
-                        identifier={"visitors"}
-                        placeholder={"Choose a Year"}
-                      />
-                      <Selector
-                        handleYear={handleChartData}
-                        placeholder={"Choose a Month"}
-                        yearSelected={yearSelected}
-                      />
-                    </Flex>
-                    <Box
-                      background="var(--primary-bg)"
-                      boxShadow="var(primary-bs)"
-                      backdropFilter={"--bg-filter"}
-                      borderRadius={10}
-                      mt={5}
-                    >
-                      <BarGraph visitors={visitors} />
-                    </Box>
-                  </Box>
-                )}
-                {sales.length > 0 && (
-                  <Box>
-                    <Flex gap={10}>
-                      <Selector
-                        handleYear={togglediabled}
-                        placeholder={"Choose a Year"}
-                        identifier={"sales"}
-                      />
-                      <Selector
-                        handleYear={handleChartData}
-                        placeholder={"Choose a Month"}
-                      />
-                    </Flex>
-                    <Box
-                      background="var(--primary-bg)"
-                      boxShadow="var(primary-bs)"
-                      backdropFilter={"--bg-filter"}
-                      borderRadius={10}
-                      mt={5}
-                    >
-                      <PieGraph sales={sales} />
-                    </Box>
-                  </Box>
-                )}
-                {revanue.length > 0 && (
-                  <Box>
-                    <Flex gap={10}>
-                      <Selector
-                        handleYear={togglediabled}
-                        placeholder={"Choose a Year"}
-                        identifier={"revanue"}
-                      />
 
-                      <Selector
-                        w={"45%"}
-                        handleYear={handleChartData}
-                        placeholder={"Choose a Month"}
-                        size="lg"
-                      />
-                    </Flex>
-                    <Box
-                      background="var(--primary-bg)"
-                      boxShadow="var(primary-bs)"
-                      backdropFilter={"--bg-filter"}
-                      borderRadius={10}
-                      mt={5}
-                    >
-                      <LineGraph revenue={revanue[0]} />
-                    </Box>
+          <SimpleGrid
+            mt={10}
+            borderRadius={8}
+            columns={[1, 1, 2]}
+            spacing="40px"
+            w={"100%"}
+          >
+            <>
+              {visitors.length > 0 && (
+                <Box>
+                  <Flex gap={10}>
+                    <Selector
+                      handleYear={togglediabled}
+                      identifier={"visitors"}
+                      placeholder={"Choose a Year"}
+                    />
+                    <Selector
+                      handleYear={handleChartData}
+                      placeholder={"Choose a Month"}
+                      yearSelected={yearSelected}
+                    />
+                  </Flex>
+                  <Box
+                    background="var(--primary-bg)"
+                    boxShadow="var(primary-bs)"
+                    backdropFilter={"--bg-filter"}
+                    borderRadius={10}
+                    mt={5}
+                  >
+                    <BarGraph visitors={visitors} />
                   </Box>
-                )}
-              </>
-            </SimpleGrid>
-          </Box>
+                </Box>
+              )}
+              {sales.length > 0 && (
+                <Box>
+                  <Flex gap={10}>
+                    <Selector
+                      handleYear={togglediabled}
+                      placeholder={"Choose a Year"}
+                      identifier={"sales"}
+                    />
+                    <Selector
+                      handleYear={handleChartData}
+                      placeholder={"Choose a Month"}
+                    />
+                  </Flex>
+                  <Box
+                    background="var(--primary-bg)"
+                    boxShadow="var(primary-bs)"
+                    backdropFilter={"--bg-filter"}
+                    borderRadius={10}
+                    mt={5}
+                  >
+                    <PieGraph sales={sales} />
+                  </Box>
+                </Box>
+              )}
+              {revanue.length > 0 && (
+                <Box w={"100%"} colSpan={5}>
+                  <Flex gap={10}>
+                    <Selector
+                      handleYear={togglediabled}
+                      placeholder={"Choose a Year"}
+                      identifier={"revanue"}
+                    />
+
+                    <Selector
+                      w={"45%"}
+                      handleYear={handleChartData}
+                      placeholder={"Choose a Month"}
+                      size="lg"
+                    />
+                  </Flex>
+                  <Box
+                    background="var(--primary-bg)"
+                    boxShadow="var(primary-bs)"
+                    backdropFilter={"--bg-filter"}
+                    borderRadius={10}
+                    mt={5}
+                  >
+                    <LineGraph revenue={revanue[0]} />
+                  </Box>
+                </Box>
+              )}
+            </>
+          </SimpleGrid>
         </React.Fragment>
       )}
     </Box>

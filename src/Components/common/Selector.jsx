@@ -21,6 +21,7 @@ const Selector = ({ handleYear, placeholder, identifier, yearSelected }) => {
       bg={"black"}
       color={"white"}
       onChange={(e) => handleYear(e, identifier)}
+      w={identifier==="header" ? "30%" : ""}
       disabled={placeholder === "Choose a Month" && !yearSelected}
     >
       {placeholder !== "Choose a Month" ? (

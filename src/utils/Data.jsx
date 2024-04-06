@@ -14,5 +14,5 @@ export const Links = [
   { path: "/l", title: "Back Accounts", icon: <AiOutlineDribbbleSquare /> },
   { path: "/i", title: "Admin/Hr", icon: <TbUserCheck /> },
   { path: "/o", title: "Reporting", icon: <TbReportSearch /> },
-  { path: "/users", title: "Members", icon: <AiOutlineDribbbleSquare /> },
+  { path: "/chart", title: "Members", icon: <AiOutlineDribbbleSquare /> },
 ];
