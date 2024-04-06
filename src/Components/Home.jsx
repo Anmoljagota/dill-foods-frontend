@@ -97,7 +97,7 @@ const Home = () => {
             mt={10}
             borderRadius={8}
             columns={[1, 1, 2]}
-            spacing="40px"
+            spacing="20px"
             w={"100%"}
           >
             <>
